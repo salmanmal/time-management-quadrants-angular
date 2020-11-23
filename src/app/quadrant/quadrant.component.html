@@ -1,0 +1,37 @@
+<div class='quadrant-container'>
+    <div class='quadrant-title'>{{title}}</div>
+    <div class="progress">
+            <div class="progress-bar" [style.width.%]="progress">
+              {{progress}}%
+            </div>
+          </div>
+          <div class='activity-list container'>
+                <div class='activity row'  *ngFor="let actvity of activities" [class.completed]="actvity.isCompleted" [class.pending]="!actvity.isCompleted">
+                     
+                        <div class='mark-complete'>
+                                <i class="fa fa-check-circle cursor" aria-hidden="true" (click)="updateActivity(actvity.activityId)" title='Done/Un-done task'></i>
+                              </div>
+                              <div class='remove-activity'>
+                                    <i class="fa fa-minus-circle cursor" aria-hidden="true" (click)="removeActivity(actvity.activityId)" ></i>
+                                  </div>
+                   
+                                  <div>{{actvity.activityName}}</div>
+                        </div>
+              </div>
+    <!-- <AddActivity ActivityType={QuadrantType}/> -->
+  </div>
+
+  <form [formGroup]="addActivityForm" (ngSubmit)="onSubmitHandler()">
+      <div class="form-group">
+          <input type="text" formControlName="activityName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.activityName.errors }" />
+          <div *ngIf="submitted && f.activityName.errors" class="invalid-feedback">
+              <div *ngIf="f.activityName.errors.required">Activity Name is required</div>
+          </div>
+      </div>
+     
+      <div class="form-group">
+          <button class="btn btn-primary" type="submit">Add</button>
+          <!-- <i  class='fa fa-plus-circle submit-icon cursor' onClick={onSubmitHandler()}></i> -->
+          <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </div>
+  </form>
